@@ -23,17 +23,17 @@ Realizando sorteio para Instagram com Python e Selenium através do terminal.
 
 - Clone o repositório:
 ```
-git clone https://github.com/RakelMacedo/sorteio-para-instagram.git
+$ git clone https://github.com/RakelMacedo/sorteio-para-instagram.git
 ```
 
 - Crie seu ambiente virtual:
 ```
-python3 -m venv venv
+$ python3 -m venv venv
 ```
 
 - E ative seu ambiente virtual:
 ```
-source venv/bin/activate
+$ source venv/bin/activate
 ```
 
 #
@@ -42,7 +42,7 @@ source venv/bin/activate
 
 - Instale as depencências:
 ```
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ``` 
 
 - O Selenium requer um driver para fazer interface com o navegador. Seguem links para alguns dos drivers de navegador mais populares:
@@ -83,7 +83,7 @@ Sinta-se a vontade para exclui-lo quando der o Fork no código, pois provavelmen
 
 - Execute o código:
 ```
-python3 code.py
+$ python3 code.py
 ```
 <br>
 
