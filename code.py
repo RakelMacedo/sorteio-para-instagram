@@ -1,17 +1,15 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+from time import sleep
 import getpass
 import random
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-from time import sleep
 
 # Setup para usar webdriver 
-chrome_options = Options()
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-
-# Driver
-driver = webdriver.Chrome(options=chrome_options)
+s = Service('./chromedriver')
+driver = webdriver.Chrome(service=s)
 
 # Pegando a página desejada
 insta = 'https://www.instagram.com'
@@ -19,12 +17,12 @@ driver.get(insta)
 sleep(3)
 
 # Selecionando os campos para preencher
-user_camp = driver.find_element_by_xpath ('//*[@id="loginForm"]/div/div[1]/div/label/input')
+user_camp = driver.find_element(By.XPATH, '//*[@id="loginForm"]/div/div[1]/div/label/input')
 
-password_camp = driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[2]/div/label/input')
+password_camp = driver.find_element(By.XPATH, '//*[@id="loginForm"]/div/div[2]/div/label/input')
 
 # Selecionando o campo do botão do enter para clique
-button_enter = driver.find_element_by_xpath('//*[@id="loginForm"]/div/div[3]/button')
+button_enter = driver.find_element(By.XPATH, '//*[@id="loginForm"]/div/div[3]/button')
 
 # Função do login
 def login():
@@ -44,9 +42,7 @@ def login():
   button_enter.click()
 
   print("\nLogando, aguarde... \ / \ / \ / \ /\n")
-  sleep(8)
-
-  no_save = driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button')
+  sleep(6)
 
 # Tentando logar
 try:
@@ -68,13 +64,13 @@ except:
   user_camp.send_keys(Keys.ENTER)
 
   login()
-  sleep(8)
+  sleep(6)
 
 # Depois do login realizado
 try:
 
   # Pega a url do sorteio
-  url = input(str('Login realizado com sucesso!\nInforme a url da publicação do sorteio:\n>>> '))
+  url = input(str('Login realizado com sucesso!\n\nInforme a url da publicação do sorteio:\n>>> '))
   driver.get(url)
   sleep(2)
 
@@ -82,13 +78,13 @@ try:
   sleep(5)
 
   # Pega e clica em todos os + para exibir todos os comentários
-  btn_plus = driver.find_element_by_class_name('dCJp8')
+  btn_plus = driver.find_element(By.CLASS_NAME, '_abl-')
 
-  # Enquanto o comentário for visivel para o usuario, clique nele
+  # Enquanto o botão for visivel para o usuario, clique nele
   while btn_plus.is_displayed():
     btn_plus.click()
     sleep(4)
-    btn_plus = driver.find_element_by_class_name('dCJp8')
+    btn_plus = driver.find_element(By.CLASS_NAME, '_abl-')
 
   # Quando nao for mais possivel clicar, o programa continuará normalmente
 except Exception:
@@ -98,14 +94,14 @@ except Exception:
 print('Terminamos de carregar todos os comentários!\nAgora vamos pegar todos os usuários e apagar os duplicados para o sorteio,\nPor favor, aguarde mais um pouco...\n')
 
 # Pegando todos os comentarios
-comments = driver.find_elements_by_class_name('gElp9')
+comments = driver.find_elements(By.CLASS_NAME, '_a9zr')
 
 # Criando uma lista vazia para adicionar os nomes dos usuarios aqui depois do loop
 list_users = []
 
 # Fazendo o loop, pra pegar o nome dos usuarios
 for comment in comments:
-  username = comment.find_element_by_class_name('_6lAjh').text
+  username = comment.find_element(By.CLASS_NAME, '_a9zc').text
 
 # Pegando usuarios únicos e adicionando na lista
   if username not in list_users:
